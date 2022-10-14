@@ -1,10 +1,23 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
 
 export default function App() {
+  const [showHelloWorld, setShowHelloWorld] = useState(false);
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Button
+        title={showHelloWorld ? "Reset Me" : "Press Me"}
+        color="cornflowerblue"
+        onPress={() => {
+          {
+            setShowHelloWorld(!showHelloWorld);
+          }
+        }}
+      ></Button>
+      {showHelloWorld && (
+        <Text style={styles.hello_world_text}>Hello World</Text>
+      )}
       <StatusBar style="auto" />
     </View>
   );
@@ -16,5 +29,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  hello_world_text: {
+    marginTop: 20,
+    fontSize: 30,
+    fontWeight: "bold",
   },
 });
