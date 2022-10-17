@@ -1,9 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Animated, Button, StyleSheet, Text, View } from "react-native";
 
 export default function App() {
   const [showHelloWorld, setShowHelloWorld] = useState(false);
+  const [springValue, setSpringValue] = useState(new Animated.Value(0.3));
+  const spring = () => {
+    springValue.resetAnimation();
+    Animated.spring(springValue, {
+      toValue: 40,
+      friction: 1,
+      useNativeDriver: false,
+    }).start();
+  };
+
   return (
     <View style={styles.container}>
       <Button
@@ -12,12 +22,18 @@ export default function App() {
         onPress={() => {
           {
             setShowHelloWorld(!showHelloWorld);
+            spring();
           }
         }}
       ></Button>
       {showHelloWorld && (
-        <Text style={styles.hello_world_text}>Hello World</Text>
+        <Animated.Text
+          style={[styles.hello_world_text, { fontSize: springValue }]}
+        >
+          Hello World
+        </Animated.Text>
       )}
+
       <StatusBar style="auto" />
     </View>
   );
