@@ -1,0 +1,32 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@types/react": "~18.0.0",
+    "@types/react-native": "~0.69.1",
+    "expo": "~46.0.16",
+    "expo-status-bar": "~1.4.0",
+    "mobx-react-lite": "^3.4.0",
+    "react": "18.0.0",
+    "react-native": "0.69.6",
+    "typescript": "*"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "eslint": "^8.0.1",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.31.10"
+  },
+  "private": true
+}
