@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export interface CheckboxProps {
   checked: boolean;
-  setCompleted: (boolean) => boolean;
+  setCompleted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Checkbox(props: CheckboxProps) {

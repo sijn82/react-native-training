@@ -3,32 +3,21 @@ import { StyleSheet, Text, View } from "react-native";
 import { observer } from "mobx-react-lite";
 import Todo from "./components/todos/Todo";
 import TodoList from "./components/todos/TodoList";
+// import { TodoProvider } from "./store/TodoStore";
+import { TodoStore } from "./store/TodoStore";
 
 export default function App() {
-  const todos = [
-    {
-      id: 1,
-      title: "First todo",
-      is_completed: false,
-    },
-    {
-      id: 2,
-      title: "Second todo",
-      is_completed: true,
-    },
-    {
-      id: 3,
-      title: "Third todo",
-      is_completed: false,
-    },
-  ];
-
+  const store = new TodoStore();
+  const TodoListObserved = observer(TodoList);
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
-      <Text>Todo's and Dont's</Text>
-      <TodoList todos={todos}></TodoList>
-      {/* <Todo id={1} title={"First todo"} is_completed={false}></Todo> */}
+      <View>
+        <StatusBar style="auto" />
+        <Text style={styles.header}>Todo's and Don'ts</Text>
+      </View>
+      <View style={styles.container}>
+        <TodoListObserved store={store}></TodoListObserved>
+      </View>
     </View>
   );
 }
@@ -39,5 +28,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  header: {
+    fontSize: 30,
+    marginTop: 80,
+    fontWeight: "bold",
   },
 });

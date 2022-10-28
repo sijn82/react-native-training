@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Checkbox from "../Checkbox";
 
-export interface TodoProps {
-  id: number;
-  title: string;
-  is_completed: boolean;
+import { TodoStore } from "../../store/TodoStore";
+
+interface TodoProps {
+  todo: {
+    id: number;
+    title: string;
+    is_completed: boolean;
+  };
 }
 
 export default function Todo(props: TodoProps) {
-  const [completed, setCompleted] = useState(props.is_completed);
+  const [completed, setCompleted] = useState<boolean>(props.todo.is_completed);
+
+  const { completeTodo } = new TodoStore();
 
   const applyStatusStyling = (status: boolean) => {
     return status ? styles.completed : styles.incomplete;
@@ -17,9 +23,15 @@ export default function Todo(props: TodoProps) {
 
   let additionalStyling = applyStatusStyling(completed);
 
+  useEffect(() => {
+    if (completed !== props.todo.is_completed) {
+      completeTodo(props.todo);
+    }
+  }, [completed]);
+
   return (
     <View style={styles.todo}>
-      <Text style={[styles.title, additionalStyling]}>{props.title}</Text>
+      <Text style={[styles.title, additionalStyling]}>{props.todo.title}</Text>
       <Checkbox checked={completed} setCompleted={setCompleted}></Checkbox>
     </View>
   );
