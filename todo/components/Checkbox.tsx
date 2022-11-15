@@ -17,9 +17,9 @@ export default function Checkbox(props: CheckboxProps) {
       }}
     >
       {props.checked ? (
-        <AntDesign name="smileo" size={30} color="gray" />
+        <AntDesign name="smileo" size={30} color="darkseagreen" />
       ) : (
-        <AntDesign name="meh" size={30} color="black" />
+        <AntDesign name="meh" size={30} color="lightsalmon" />
       )}
     </Pressable>
   );
