@@ -45,11 +45,14 @@ export class TodoStore {
     }
     // Check the list of todo's for the (currently) highest id, then increment it for this new todo's id
     let id = this.calculateId(this.todos);
+    // We'll use priority to order the todos when displayed as a list
+    let priority = this.todos.length + 1;
 
     let todo = {
-      id: id,
+      id: id, // I know id isn't currently used for anything but maybe in future :)
       title: title,
       is_completed: false,
+      priority: priority,
     };
 
     let key = "@todo-" + id;
@@ -78,6 +81,14 @@ export class TodoStore {
     });
 
     return reformattedTodos;
+  };
+
+  reorderTodos = (reformattedTodos) => {
+    let reorderedTodos = [...reformattedTodos].sort(
+      (a, b) => a[1].priority - b[1].priority
+    );
+
+    return reorderedTodos;
   };
 
   deleteTodo = async (todo) => {
@@ -128,14 +139,46 @@ export class TodoStore {
       let readonlyTodos = await AsyncStorage.multiGet(todo_keys);
 
       runInAction(() => {
+        // Reformat todos to remove the readonly trait
         const reformattedTodos = this.reformatTodos(readonlyTodos);
-        this.todos = reformattedTodos;
+        // Reorder the todos by priority
+        const reorderedTodos = this.reorderTodos(reformattedTodos);
+        // Set the reformatted/reordered todos to the store observed variable
+        this.todos = reorderedTodos;
       });
     } catch (error) {
       alert(error);
     }
 
     return this.todos;
+  };
+
+  updateTodoPriorities = (todos) => {
+    // Set this.todos to match the new priority order
+    // before we call asyncstorage in order to prevent
+    // the list from stuttering briefly back to the original state
+    // while asyncstorage sets the new values officially.
+    runInAction(() => {
+      this.todos = todos;
+    });
+
+    todos.map(async (todo, index) => {
+      todo[1].priority = index;
+
+      try {
+        const jsonTodo = JSON.stringify(todo[1]);
+        await AsyncStorage.setItem(todo[0], jsonTodo);
+
+        runInAction(() => {
+          // while this step is unnecessary it as it should match this.todos already
+          // It just confirms we're working with accurate data before further changes
+          // are made
+          this.getTodos();
+        });
+      } catch (error) {
+        alert(error);
+      }
+    });
   };
 
   clearAll = async () => {

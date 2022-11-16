@@ -22,7 +22,7 @@ import DraggableFlatList, {
 
 export default function TodoList({ store }: { store: TodoStore }) {
   const [newTodo, setNewTodo] = useState("");
-  const [todos, setTodos] = useState([]);
+  // const [todos, setTodos] = useState([]);
 
   // Phone dimensions
   const windowWidth = Dimensions.get("window").width;
@@ -30,8 +30,8 @@ export default function TodoList({ store }: { store: TodoStore }) {
 
   const fetchTodos = async () => {
     await store.getTodos();
-    setTodos(store.todos);
-    console.log(store.todos);
+    // setTodos(store.todos);
+    // console.log(store.todos);
   };
 
   const renderTodo = ({ item, drag, isActive }) => {
@@ -48,6 +48,7 @@ export default function TodoList({ store }: { store: TodoStore }) {
 
   useEffect(() => {
     fetchTodos();
+    console.log(store.todos);
   }, []);
 
   return (
@@ -68,26 +69,31 @@ export default function TodoList({ store }: { store: TodoStore }) {
         onPress={() => {
           store.addTodo(newTodo);
           setNewTodo("");
+          // fetchTodos();
           Keyboard.dismiss();
           Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
         }}
       >
         <Text style={[styles.button.text]}>Add</Text>
       </Pressable>
-      {todos && todos.length > 0 ? (
-        // && store.todos.length > 0
+      {store.todos && store.todos.length > 0 ? (
         <View style={styles.container}>
           <DraggableFlatList
-            data={todos}
-            onDragEnd={({ data }) => setTodos(data)}
+            data={store.todos}
+            // data={todos}
+            onDragEnd={({ data }) => {
+              // console.log("is it this that's filling the logs?"),
+              //   console.log(data[1]),
+
+              store.updateTodoPriorities(data);
+              // setTodos(data);
+              // fetchTodos();
+            }}
             renderItem={renderTodo}
-            keyExtractor={(item) => item[1].id}
+            keyExtractor={(item) => item[1].priority}
           />
         </View>
       ) : (
-        // store.todos.map((todo) => {
-        //   return <Todo key={todo[0]} store={store} todo={todo[1]}></Todo>;
-        // })
         <Text style={styles.no_todos_text}> You have no todo's! </Text>
       )}
 
