@@ -6,6 +6,7 @@ import TodoList from "./components/todos/TodoList";
 // import { TodoProvider } from "./store/TodoStore";
 import { TodoStore } from "./store/TodoStore";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Entypo } from "@expo/vector-icons";
 
 export default function App() {
   const store = new TodoStore();
@@ -15,7 +16,15 @@ export default function App() {
       <SafeAreaView>
         <View style={styles.header}>
           <StatusBar style="auto" />
-          <Text style={styles.title}>Todo's and Don'ts</Text>
+          <Text style={styles.title}>
+            T
+            <Entypo name="emoji-neutral" size={24} color="black" />
+            d
+            <Entypo name="emoji-happy" size={24} color="black" />
+            's and D
+            <Entypo name="emoji-flirt" size={24} color="black" />
+            n'ts
+          </Text>
         </View>
         <View style={styles.container}>
           <TodoListObserved store={store}></TodoListObserved>

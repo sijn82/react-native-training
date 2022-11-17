@@ -38,7 +38,7 @@ export default function TodoList({ store }: { store: TodoStore }) {
     return (
       <ScaleDecorator>
         <View style={{ marginVertical: 5, alignContent: "center" }}>
-          <Pressable onLongPress={drag}>
+          <Pressable onLongPress={drag} disabled={isActive}>
             <Todo key={item[0]} store={store} todo={item[1]}></Todo>
           </Pressable>
         </View>
@@ -93,7 +93,11 @@ export default function TodoList({ store }: { store: TodoStore }) {
               // fetchTodos();
             }}
             renderItem={renderTodo}
-            keyExtractor={(item) => item[1].priority}
+            keyExtractor={(item) => {
+              // console.log("Priority");
+              // console.log(item[1].priority);
+              return item[1].priority;
+            }}
           />
         </View>
       ) : (

@@ -1,6 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { makeAutoObservable, runInAction } from "mobx";
 
+export interface TodoInterface {
+  id: number;
+  title: string;
+  is_completed: boolean;
+  priority: number;
+}
+
 export class TodoStore {
   todos = [];
 
@@ -29,7 +36,7 @@ export class TodoStore {
       // console.log(key);
       await AsyncStorage.setItem(key, jsonTodo);
 
-      console.log(this.todos);
+      // console.log(this.todos);
 
       runInAction(() => this.todos.push([key, todo]));
     } catch (error) {

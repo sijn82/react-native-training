@@ -2,20 +2,15 @@ import { useEffect, useState } from "react";
 import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 import Checkbox from "../Checkbox";
 
-import { TodoStore } from "../../store/TodoStore";
+import { TodoInterface, TodoStore } from "../../store/TodoStore";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import * as Haptics from "expo-haptics";
 import { Dimensions } from "react-native";
 const windowWidth = Dimensions.get("window").width;
 
 interface TodoProps {
-  todo: {
-    id: number;
-    title: string;
-    is_completed: boolean;
-  };
+  todo: TodoInterface;
   store: TodoStore;
-  // drag: any;
 }
 
 export default function Todo(props: TodoProps) {
@@ -108,7 +103,6 @@ const styles = StyleSheet.create({
     color: "black",
   },
   button: {
-    // marginVertical: 20,
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
