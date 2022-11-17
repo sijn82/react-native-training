@@ -101,7 +101,9 @@ export default function TodoList({ store }: { store: TodoStore }) {
           />
         </View>
       ) : (
-        <Text style={styles.no_todos_text}> You have no todo's! </Text>
+        <View style={styles.container}>
+          <Text style={styles.no_todos_text}> You have no todo's! </Text>
+        </View>
       )}
 
       <Pressable

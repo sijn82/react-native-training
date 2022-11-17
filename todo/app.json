@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "todo",
+    "name": "Todos & Dont's",
     "slug": "todo",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -14,20 +14,25 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sijn.todo"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.sijn.todo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f524b6ee-83b1-424d-a196-428a3e3392e3"
+      }
     }
   }
 }
