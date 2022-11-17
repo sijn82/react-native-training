@@ -36,7 +36,7 @@ export class TodoStore {
       alert(error);
     }
   };
-
+  // Add a new todo to asyncstorage and push the new todo into this.todos
   addTodo = async (title) => {
     if (!title) {
       return alert(
@@ -59,7 +59,7 @@ export class TodoStore {
 
     await this.saveTodo(key, todo);
   };
-
+  // Flip the state of a todo, either marking it as completed or incomplete
   completeTodo = async (todo) => {
     let key = "@todo-" + todo.id;
 
@@ -82,7 +82,7 @@ export class TodoStore {
 
     return reformattedTodos;
   };
-
+  // Used in getTodos
   reorderTodos = (reformattedTodos) => {
     let reorderedTodos = [...reformattedTodos].sort(
       (a, b) => a[1].priority - b[1].priority
@@ -90,7 +90,7 @@ export class TodoStore {
 
     return reorderedTodos;
   };
-
+  // Remove a todo from asyncstorage and from then from this.todos
   deleteTodo = async (todo) => {
     let key = "@todo-" + todo.id;
 
@@ -115,7 +115,8 @@ export class TodoStore {
       return error;
     }
   };
-
+  // Grab all the current todos from asyncstorage,
+  // reformat and reorder them by priority
   getTodos = async () => {
     let keys: ReadonlyArray<string> = [];
     try {
@@ -153,6 +154,7 @@ export class TodoStore {
     return this.todos;
   };
 
+  // Update the priority order of todos
   updateTodoPriorities = (todos) => {
     // Set this.todos to match the new priority order
     // before we call asyncstorage in order to prevent
@@ -180,7 +182,7 @@ export class TodoStore {
       }
     });
   };
-
+  // Remove all todos from asyncstorage and empty this.todos
   clearAll = async () => {
     try {
       await AsyncStorage.clear();

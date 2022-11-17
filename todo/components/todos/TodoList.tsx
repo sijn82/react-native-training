@@ -53,29 +53,32 @@ export default function TodoList({ store }: { store: TodoStore }) {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={[styles.input, { width: windowWidth / 2 }]}
-        onChangeText={setNewTodo}
-        value={newTodo}
-        placeholder="Add a new todo..."
-      />
-      <Pressable
-        style={({ pressed }) => [
-          { opacity: pressed ? 0.5 : 1 },
-          styles.button,
-          styles.button.save,
-          { width: windowWidth / 2 },
-        ]}
-        onPress={() => {
-          store.addTodo(newTodo);
-          setNewTodo("");
-          // fetchTodos();
-          Keyboard.dismiss();
-          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-        }}
-      >
-        <Text style={[styles.button.text]}>Add</Text>
-      </Pressable>
+      <View style={styles.new_todo}>
+        <TextInput
+          style={[styles.input, { width: windowWidth / 2 }]}
+          onChangeText={setNewTodo}
+          value={newTodo}
+          placeholder="Add a new todo..."
+        />
+        <Pressable
+          style={({ pressed }) => [
+            { opacity: pressed ? 0.5 : 1 },
+            styles.button,
+            styles.button.save,
+            { width: windowWidth / 4 },
+          ]}
+          onPress={() => {
+            store.addTodo(newTodo);
+            setNewTodo("");
+            // fetchTodos();
+            Keyboard.dismiss();
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+          }}
+        >
+          <Text style={[styles.button.text]}>Add</Text>
+        </Pressable>
+      </View>
+
       {store.todos && store.todos.length > 0 ? (
         <View style={styles.container}>
           <DraggableFlatList
@@ -115,15 +118,19 @@ export default function TodoList({ store }: { store: TodoStore }) {
 }
 
 const styles = StyleSheet.create({
+  new_todo: {
+    flexDirection: "row",
+    marginHorizontal: 20,
+    marginVertical: 20,
+  },
   input: {
-    marginTop: 20,
+    marginRight: 20,
     height: 50,
     borderWidth: 1,
     padding: 10,
     alignItems: "center",
   },
   button: {
-    marginVertical: 20,
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
@@ -136,6 +143,7 @@ const styles = StyleSheet.create({
     },
     delete: {
       backgroundColor: "tomato",
+      marginVertical: 20,
     },
   },
   no_todos_text: {

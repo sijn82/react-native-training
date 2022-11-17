@@ -5,6 +5,8 @@ import Checkbox from "../Checkbox";
 import { TodoStore } from "../../store/TodoStore";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import * as Haptics from "expo-haptics";
+import { Dimensions } from "react-native";
+const windowWidth = Dimensions.get("window").width;
 
 interface TodoProps {
   todo: {
@@ -67,7 +69,13 @@ export default function Todo(props: TodoProps) {
   return (
     <Swipeable renderLeftActions={renderLeftActions}>
       <View style={styles.todo}>
-        <Text style={[styles.title, additionalStyling]}>
+        <Text
+          style={[
+            styles.title,
+            additionalStyling,
+            { maxWidth: windowWidth - 150 },
+          ]}
+        >
           {props.todo.title}
         </Text>
         <Checkbox checked={completed} setCompleted={setCompleted}></Checkbox>
@@ -90,7 +98,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginRight: 10,
-    fontSize: 25,
+    fontSize: 20,
   },
   completed: {
     color: "gray",
