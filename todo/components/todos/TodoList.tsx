@@ -22,6 +22,7 @@ import DraggableFlatList, {
 
 export default function TodoList({ store }: { store: TodoStore }) {
   const [newTodo, setNewTodo] = useState("");
+  const [onFocus, setOnFocus] = useState(false);
   // const [todos, setTodos] = useState([]);
 
   // Phone dimensions
@@ -55,7 +56,13 @@ export default function TodoList({ store }: { store: TodoStore }) {
     <View style={styles.container}>
       <View style={styles.new_todo}>
         <TextInput
-          style={[styles.input, { width: windowWidth / 2 }]}
+          style={[
+            styles.input,
+            { width: windowWidth / 2 },
+            onFocus ? { borderColor: "darkseagreen", borderWidth: 2 } : {},
+          ]}
+          onFocus={() => setOnFocus(true)}
+          onBlur={() => setOnFocus(false)}
           onChangeText={setNewTodo}
           value={newTodo}
           placeholder="Add a new todo..."
@@ -153,7 +160,7 @@ const styles = StyleSheet.create({
     },
   },
   no_todos_text: {
-    fontSize: 30,
+    fontSize: 20,
     marginVertical: 20,
   },
   container: {
