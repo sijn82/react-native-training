@@ -59,7 +59,7 @@ export default function TodoList({ store }: { store: TodoStore }) {
           style={[
             styles.input,
             { width: windowWidth / 2 },
-            onFocus ? { borderColor: "darkseagreen", borderWidth: 2 } : {},
+            onFocus ? { borderColor: "lightgreen", borderWidth: 2 } : {},
           ]}
           onFocus={() => setOnFocus(true)}
           onBlur={() => setOnFocus(false)}
@@ -139,9 +139,10 @@ const styles = StyleSheet.create({
   input: {
     marginRight: 20,
     height: 50,
-    borderWidth: 1,
+    borderWidth: 2,
     padding: 10,
     alignItems: "center",
+    borderColor: "darkseagreen",
   },
   button: {
     padding: 10,
